@@ -1,51 +1,76 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="<?php echo base_url('./css/style.css'); ?>">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?= $title ?></title>
+    <style>
+        body {
+            background-color: #808080;
+            color: #fff;
+            font-family: Arial, sans-serif;
+        }
 
-    <title>user</title>
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #222;
+            border: none;
+            color: #fff;
+        }
+
+        .form-group button[type="submit"] {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .form-group button[type="submit"]:hover {
+            background-color: #555;
+        }
+    </style>
 </head>
-<body class="p-3 mb-2 bg-info text-dark">
-    <!-- <img src="restu.jpg" style="width:500px;height:400px; border-radius: 50%;"  -->
-    
-    <center>
+<body>
     <div class="container">
-    <img src=" <?php
-        echo base_url('./img/restu.jpg')  ;
-    ?>"
-    alt="restu" style=" border-radius: 50%; margin-button: 50px;">
-    
-    <form action="<?php echo base_url('/user/store') ?>" method="POST">
-        <!-- Input untuk nama -->
-        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="NAMA" name="nama"><br><br>
-
-
-        <!-- Input untuk npm -->
-        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="NPM" name="npm"><br><br>
-
-        <!-- Input untuk kelas -->
-        <tr>
-            <td>Kelas</td>
-            <td>:</td>
-            <td>
-                <select name="kelas" id="kelas">
-                    <?php foreach($kelas as $item):?>
-                        <option value="<?=$item['id']?>"><?=$item['nama_kelas']?></option>
-                    <?php endforeach;?>
+        <h1><?= $title ?></h1>
+        <form action="<?= base_url('/user/store') ?>" method="post">
+            <div class="form-group">
+                <label for="nama">Nama</label>
+                <input type="text" id="nama" name="nama" value="<?= old('nama') ?>">
+            </div>
+            <div class="form-group">
+                <label for="kelas">Kelas</label>
+                <select id="kelas" name="kelas">
+                    <?php foreach ($kelas as $kelasItem) : ?>
+                        <option value="<?= $kelasItem['id'] ?>"><?= $kelasItem['nama_kelas'] ?></option>
+                    <?php endforeach; ?>
                 </select>
-            </td>
-        </tr>
-
-
-        <!-- Tombol submit -->
-        <tr>
-             <td><input type="submit" value="Simpan"></td>
-            </tr>
-    </form>
+            </div>
+            <div class="form-group">
+                <label for="npm">NPM</label>
+                <input type="text" id="npm" name="npm" value="<?= old('npm') ?>">
+            </div>
+            <?php if (session('validation')) : ?>
+                <div class="error"><?= session('validation')->listErrors() ?></div>
+            <?php endif; ?>
+            <div class="form-group">
+                <button type="submit">Simpan</button>
+            </div>
+        </form>
     </div>
-    </center>
 </body>
 </html>
