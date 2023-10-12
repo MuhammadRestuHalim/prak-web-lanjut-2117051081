@@ -1,51 +1,43 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="<?php echo base_url('./css/style.css'); ?>">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-
-    <title>user</title>
-</head>
-<body class="p-3 mb-2 bg-info text-dark">
-    <!-- <img src="restu.jpg" style="width:500px;height:400px; border-radius: 50%;"  -->
-    
-    <center>
-    <div class="container">
-    <img src=" <?php
-        echo base_url('./img/restu.jpg')  ;
-    ?>"
-    alt="restu" style=" border-radius: 50%; margin-button: 50px;">
-    
-    <form action="<?php echo base_url('/user/store') ?>" method="POST">
-        <!-- Input untuk nama -->
-        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="NAMA" name="nama"><br><br>
-
-
-        <!-- Input untuk npm -->
-        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="NPM" name="npm"><br><br>
-
-        <!-- Input untuk kelas -->
-        <tr>
-            <td>Kelas</td>
-            <td>:</td>
-            <td>
-                <select name="kelas" id="kelas">
-                    <?php foreach($kelas as $item):?>
-                        <option value="<?=$item['id']?>"><?=$item['nama_kelas']?></option>
-                    <?php endforeach;?>
-                </select>
-            </td>
-        </tr>
-
-
-        <!-- Tombol submit -->
-        <tr>
-             <td><input type="submit" value="Simpan"></td>
-            </tr>
-    </form>
+<?= $this->extend('layouts/app') ?>
+<?= $this->section('content') ?>
+<main class="form-signin w-100 m-auto">
+  <form action="<?= base_url('/user/store') ?>" method="POST" enctype="multipart/form-data">
+    <h1 class="h3 mt-5 mb-3 fw-normal">Masukan Data Diri</h1>
+    <div class="form-floating">
+      <input type="text" class="form-control mt-2 <?= session('validation') && session('validation')->hasError('nama') ? 'is-invalid' : '' ?>" id="floatingName" placeholder="Nama" name="nama" value="<?= old('nama') ?>">
+      <label for="floatingName">Nama</label>
+      <?php if (session('validation') && session('validation')->hasError('nama')) : ?>
+        <div class="invalid-feedback">
+          <?= session('validation')->getError('nama'); ?>
+        </div>
+      <?php endif; ?>
     </div>
-    </center>
-</body>
-</html>
+    </div>
+    <div class="form-floating">
+      <input type="number" class="form-control mt-2 <?= session('validation') ? 'is-invalid' : '' ?>" id="floatingNpm" placeholder="NPM" name="npm" value="<?= old('npm') ?>">
+      <label for="floatingNpm">NPM</label>
+      <?php if (session('validation') && session('validation')->hasError('npm')) : ?>
+        <div class="invalid-feedback">
+          <?= session('validation')->getError('npm'); ?>
+        </div>
+      <?php endif; ?>
+    </div>
+    <div class="form-floating">
+      <select class="form-select mt-2" aria-label="Default select example" name="kelas">
+        <option value="" selected disabled>Pilih Kelas</option>
+        <?php
+        foreach ($kelas as $item) {
+        ?>
+          <option value="<?= $item['id'] ?>"><?= $item['nama_kelas'] ?></option>
+        <?php } ?>
+      </select>
+      <br>
+
+      <input type="file", name="foto">
+    </div>
+
+
+    <button class="btn btn-primary w-100 py-2 mt-3" type="submit">Submit</button>
+  </form>
+</main>
+<?= $this->endSection('content') ?>

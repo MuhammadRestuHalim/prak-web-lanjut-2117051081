@@ -1,37 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="<?php echo base_url('./css/style.css'); ?>">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-    <title>Document</title>
-</head>
-<body class="p-3 mb-2 bg-info text-dark">
-<!-- <img src="restu.jpg" style="width:500px;height:400px; border-radius: 50%;"  -->
-
-    <center>
-    </center>
-
+<?= $this->extend('layouts/app') ?>
+    
+    <?= $this->section('content') ?>
+    
     <center>
       <div class="container">
-      <img src ="
-    <?php
-        echo base_url('./img/restu.jpg') ;
-    ?>">
-      <div class="item" >
-            <?= $nama?>
-      </div>
-      <div class="item">
-            <?= $kelas?>
-      </div>
-      <div class="item">
-                <?= $npm?>
-      </div>
-
-    </div>
-    
+      <div class="w-100 d-grid border gap-2" style="height: 100vh; place-content: center;">
+      <div class="w-50 text-center border mx-auto">
+      <img src ="<?= $user['foto']??'<default-foto'?>" width="100%" height="100%" alt="">
+      <div class="item" ><?= $user['nama']?></div>
+      <div class="item" ><?= $user['npm']?></div>
+      <div class="item" ><?= $user['nama_kelas']?></div>
+</div>
 </center>
-
-</body>
-</html>
+    <?= $this->endSection() ?>
