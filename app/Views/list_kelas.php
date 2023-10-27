@@ -19,17 +19,17 @@
       <tbody>
         <?php
         $no = 1;
-        foreach ($users as $user) { ?>
+        foreach ($user as $u) { ?>
           <tr>
             <td><?= $no++ ?></td>
-            <td><?= $user['nama'] ?></td>
-            <td><?= $user['npm'] ?></td>
-            <td><?= $user['nama_kelas'] ?></td>
+            <td><?= $u['nama'] ?></td>
+            <td><?= $u['npm'] ?></td>
+            <td><?= $u['nama_kelas'] ?></td>
             <td class="d-flex flex-row ">
-              <a class="btn btn-success mx-1" href="<?=base_url('user/' . $user['id']) ?>">Detail</a>
-              <a class="btn btn-success mx-1" href="<?= base_url('user/' . $user['id'] . '/edit') ?>">Edit</a>
+              <a class="btn btn-success mx-1" href="<?=base_url('user/' . $u['id']) ?>">Detail</a>
+              <a class="btn btn-success mx-1" href="<?= base_url('user/' . $u['id'] . '/edit') ?>">Edit</a>
             
-                        <form action="<?= base_url('user/delete/' . $user['id']) ?>" method="POST">
+                        <form action="<?= base_url('user/delete/' . $u['id']) ?>" method="POST">
                             <input  type="hidden" name="_method" value="DELETE">
                             <?= csrf_field() ?>
                             <button class="btn btn-danger mx-1" type="submit">Delete</button>
